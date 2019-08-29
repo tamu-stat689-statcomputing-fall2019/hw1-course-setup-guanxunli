@@ -21,17 +21,7 @@ generateY <- function(X, beta, sigma, seed = 5832652){
 # Y -response
 calculateBeta <- function(X, Y){
   # Calculate beta_LS
-  thres <- 1e-5
-  tmp_mat <- t(X) %*% X
-  if (det(tmp_mat) > thres){
-    beta_LS <- solve(tmp_mat, t(X)%*%Y)
-  }
-  else{
-    res <- svd(X)
-    X_ginv <- res$v %*% diag(1/res$d) %*% t(res$u)
-    beta_LS <- X_ginv %*% t(X) %*% Y
-  }
-  
+  beta_LS <- solve(t(X) %*% X, t(X) %*% Y)
   # Return beta
   return(beta_LS)
 }
