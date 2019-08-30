@@ -21,16 +21,14 @@ generateY <- function(X, beta, sigma, seed = 5832652){
 # Y -response
 calculateBeta <- function(X, Y){
   # Calculate beta_LS
-  beta_LS <- solve(t(X) %*% X, t(X) %*% Y)
+  beta_LS <- solve(crossprod(X), crossprod(X,Y))
   # Return beta
   return(beta_LS)
 }
 
 # Calculate MSE
 calculateMSE <- function(beta, beta_LS){
-  
   # Return MSE - error ||beta - beta_LS||_2^2
-  n <- length(beta)
-  MSE <- 1/n * sum((beta - beta_LS)^2)
+  MSE <- as.numeric(crossprod(beta - beta_LS))
   return(MSE)
 }
